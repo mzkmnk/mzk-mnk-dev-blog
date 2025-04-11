@@ -13,7 +13,7 @@ import { tablerSearch } from '@ng-icons/tabler-icons';
     provideIcons({tablerSearch})
   ],
   template: `
-    <header class="h-20 bg-gray-50">
+    <header class="h-20">
       <div class="flex h-full items-center justify-between px-6">
         <h3 class="font-semibold">FRONTEND</h3>
         <ul class="flex gap-10 items-center">

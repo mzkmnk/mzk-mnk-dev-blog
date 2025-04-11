@@ -12,4 +12,8 @@
   h3 {
     font-size: var(--text-3xl);
   }
+
+  body {
+    background-color: var(--color-gray-50);
+  }
 }
