@@ -13,12 +13,11 @@ import { tablerSearch } from '@ng-icons/tabler-icons';
     provideIcons({tablerSearch})
   ],
   template: `
-    <header class="h-20 bg-gray-50">
+    <header class="h-20">
       <div class="flex h-full items-center justify-between px-6">
-        <h3 class="font-semibold">FRONTEND</h3>
+        <h3 class="font-semibold">MZK.MNK.DEV</h3>
         <ul class="flex gap-10 items-center">
           <app-nav-item item="Home" (onClickNavItem)="clickNavItem('home')" />
-          <app-nav-item item="Articles" (onClickNavItem)="clickNavItem('articles')" />
           <app-nav-item item="About me" (onClickNavItem)="clickNavItem('aboutMe')" />
           <ng-icon class="cursor-pointer" name="tablerSearch" />
         </ul>
