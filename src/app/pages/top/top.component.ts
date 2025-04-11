@@ -6,8 +6,11 @@ import {CardComponent} from "../../components/card/card.component";
   imports: [
     CardComponent
   ],
+  host: {
+    class: 'w-full'
+  },
   template: `
-    <div class="flex gap-10 flex-wrap items-center justify-center">
+    <div class="grid gap-14 grid-cols-[repeat(auto-fill,minmax(24rem,24rem))] justify-center">
       @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track i) {
         <app-card/>
       }
