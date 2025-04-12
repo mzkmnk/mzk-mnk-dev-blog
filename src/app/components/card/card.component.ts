@@ -1,9 +1,9 @@
-import {Component} from "@angular/core";
+import {Component, output} from "@angular/core";
 
 @Component({
   selector: 'app-card',
   template: `
-    <div class="relative overflow-hidden flex justify-center items-center h-100 min-w-96 bg-white rounded-2xl shadow-xs cursor-pointer animate-border"></div>
+    <button class="relative overflow-hidden flex justify-center items-center h-100 min-w-96 bg-white rounded-2xl shadow-xs cursor-pointer animate-border" (click)="navigateBlog()"></button>
   `,
   styles: [
     `
@@ -37,4 +37,9 @@ import {Component} from "@angular/core";
 })
 export class CardComponent {
 
+  onClick = output<void>();
+
+  navigateBlog():void{
+    this.onClick.emit();
+  }
 }
