@@ -1,6 +1,19 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Noto+Sans+JP&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap');
+
+@theme {
+  --font-sans: 'Noto Sans JP', sans-serif;
+}
+
 @layer base {
+
+  html {
+    color: var(--color-gray-800);
+
+    @apply font-sans;
+  }
+
   h1 {
     font-size: var(--text-5xl);
   }
@@ -16,5 +29,59 @@
   body {
     background-color: var(--color-gray-50);
     margin-bottom: 2rem;
+  }
+
+  markdown blockquote {
+    border-left: 4px solid var(--color-gray-300);
+    padding: 0.2em 1em;
+    color: var(--color-gray-600);
+  }
+
+  markdown blockquote.info,
+  markdown blockquote.warning,
+  markdown blockquote.error,
+  markdown blockquote.success {
+    background-color: var(--color-gray-100);
+    border-left: 4px solid var(--color-gray-400);
+    margin: 1em 0;
+    padding: 0.8em 1em;
+    color: #24292f;
+    border-radius: 0.2rem;
+  }
+
+  markdown blockquote.info {
+    background-color: var(--color-sky-100);
+    border-left-color: var(--color-blue-400);
+  }
+
+  markdown blockquote.info strong {
+    color: var(--color-blue-700);
+  }
+
+  markdown blockquote.warning {
+    background-color: var(--color-orange-100);
+    border-left-color: var(--color-orange-400);
+  }
+
+  markdown blockquote.warning strong {
+    color: var(--color-orange-500);
+  }
+
+  markdown blockquote.error {
+    background-color: var(--color-red-100);
+    border-left-color: var(--color-red-400);
+  }
+
+  markdown blockquote.error strong {
+    color: var(--color-red-500);
+  }
+
+  markdown blockquote.success {
+    background-color: var(--color-green-100);
+    border-left-color: var(--color-green-400);
+  }
+
+  markdown blockquote.success strong {
+    color: var(--color-green-500);
   }
 }
