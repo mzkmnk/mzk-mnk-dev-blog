@@ -1,20 +1,15 @@
-import {Component, inject} from '@angular/core';
-import {NavItemComponent} from './nav-item.component';
-import {NgIcon, provideIcons} from '@ng-icons/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerSearch } from '@ng-icons/tabler-icons';
-import {Router} from '@angular/router';
+import { NavItemComponent } from './nav-item.component';
 
 @Component({
-  selector: 'app-header',
-  imports: [
-    NavItemComponent,
-    NgIcon,
-  ],
-  providers: [
-    provideIcons({tablerSearch})
-  ],
-  template: `
-    <header class="h-20 ">
+	selector: 'app-header',
+	imports: [NavItemComponent, NgIcon],
+	providers: [provideIcons({ tablerSearch })],
+	template: `
+    <header class="h-20">
       <div class="flex h-full items-center justify-between px-6">
         <h3 class="font-semibold">MZK.MNK.DEV</h3>
         <ul class="flex gap-10 items-center">
@@ -24,16 +19,15 @@ import {Router} from '@angular/router';
         </ul>
       </div>
     </header>
-  `
+  `,
 })
 export class HeaderComponent {
+	private readonly router = inject(Router);
 
-  private readonly router = inject(Router);
-
-  async clickNavItem(item: 'home'|'aboutMe'): Promise<void> {
-    switch (item) {
-      case 'home':
-        await this.router.navigate(['/home']);
-    }
-  }
+	async clickNavItem(item: 'home' | 'aboutMe'): Promise<void> {
+		switch (item) {
+			case 'home':
+				await this.router.navigate(['/home']);
+		}
+	}
 }
