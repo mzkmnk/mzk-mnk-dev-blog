@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {NavItemComponent} from './nav-item.component';
 import {NgIcon, provideIcons} from '@ng-icons/core';
 import { tablerSearch } from '@ng-icons/tabler-icons';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ import { tablerSearch } from '@ng-icons/tabler-icons';
     provideIcons({tablerSearch})
   ],
   template: `
-    <header class="h-20">
+    <header class="h-20 ">
       <div class="flex h-full items-center justify-between px-6">
         <h3 class="font-semibold">MZK.MNK.DEV</h3>
         <ul class="flex gap-10 items-center">
@@ -27,7 +28,12 @@ import { tablerSearch } from '@ng-icons/tabler-icons';
 })
 export class HeaderComponent {
 
-  clickNavItem(item: 'home'|'articles'|'aboutMe'): void {
-    console.log(`Clicked on ${item}`);
+  private readonly router = inject(Router);
+
+  async clickNavItem(item: 'home'|'aboutMe'): Promise<void> {
+    switch (item) {
+      case 'home':
+        await this.router.navigate(['/home']);
+    }
   }
 }
