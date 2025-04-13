@@ -15,15 +15,19 @@
   }
 
   h1 {
-    font-size: var(--text-5xl);
+    font-size: var(--text-3xl);
   }
 
   h2 {
-    font-size: var(--text-4xl);
+    font-size: var(--text-2xl);
   }
 
   h3 {
-    font-size: var(--text-3xl);
+    font-size: var(--text-xl);
+  }
+
+  p {
+    font-size: var(--text-sm);
   }
 
   body {
@@ -83,5 +87,11 @@
 
   markdown blockquote.success strong {
     color: var(--color-green-500);
+  }
+
+  markdown pre {
+    border-radius: var(--radius-2xl);
+
+    font-size: var(--text-xs) !important;
   }
 }
