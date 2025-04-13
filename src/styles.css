@@ -15,14 +15,18 @@
   }
 
   h1 {
-    font-size: var(--text-3xl);
+    font-size: var(--text-4xl);
   }
 
   h2 {
-    font-size: var(--text-2xl);
+    font-size: var(--text-3xl);
   }
 
   h3 {
+    font-size: var(--text-2xl);
+  }
+
+  h4 {
     font-size: var(--text-xl);
   }
 
@@ -93,5 +97,25 @@
     border-radius: var(--radius-2xl);
 
     font-size: var(--text-xs) !important;
+  }
+
+  markdown hr {
+    border: 0;
+    height: 2px;
+    background-color: var(--color-gray-300);
+    margin: 1rem 0;
+    border-radius: var(--radius-2xl);
+  }
+
+  markdown h1,
+  markdown h2,
+  markdown h3 {
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.7rem;
+    border-bottom: 1px solid var(--color-gray-300);
+  }
+
+  markdown h4 code {
+    font-size: var(--text-sm);
   }
 }
