@@ -1,10 +1,10 @@
-import type {Agenda} from '@/models/agenda.model';
-import {HttpClient} from '@angular/common/http';
-import {computed, inject, Injectable, signal} from '@angular/core';
-import {firstValueFrom} from 'rxjs';
+import type { Agenda } from '@/models/agenda.model';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class BlogService {
+export class BlogDetailService {
 	private readonly http = inject(HttpClient);
 
 	private readonly _agenda = signal<Agenda[]>([]);
@@ -13,7 +13,7 @@ export class BlogService {
 
 	async getBlog(id: number): Promise<string> {
 		return await firstValueFrom(
-			this.http.get(`blog/${id}.md`, { responseType: 'text' }),
+			this.http.get('blogs/signal.md', { responseType: 'text' }),
 		);
 	}
 

@@ -1,5 +1,5 @@
-import {BlogService} from '@/services/blog/blog.service';
-import {Component, inject} from '@angular/core';
+import { BlogDetailService } from '@/services/blog-detail/blog-detail.service';
+import { Component, inject } from '@angular/core';
 
 @Component({
 	selector: 'app-agenda',
@@ -18,7 +18,7 @@ import {Component, inject} from '@angular/core';
   `,
 })
 export class AgendaComponent {
-	private readonly blogService = inject(BlogService);
+	private readonly blogDetailService = inject(BlogDetailService);
 
-	agenda = this.blogService.agenda;
+	agenda = this.blogDetailService.agenda;
 }

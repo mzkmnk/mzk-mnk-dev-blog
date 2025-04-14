@@ -1,7 +1,7 @@
-import {AgendaComponent} from '@/pages/blog/components/agenda/agenda.component';
-import {BlogService} from '@/services/blog/blog.service';
-import {Component, inject, input, resource} from '@angular/core';
-import {MarkdownComponent} from './components/markdown/markdown.component';
+import { AgendaComponent } from '@/pages/blog/components/agenda/agenda.component';
+import { BlogDetailService } from '@/services/blog-detail/blog-detail.service';
+import { Component, inject, input, resource } from '@angular/core';
+import { MarkdownComponent } from './components/markdown/markdown.component';
 
 @Component({
 	selector: 'app-blog',
@@ -26,9 +26,9 @@ import {MarkdownComponent} from './components/markdown/markdown.component';
 })
 export class BlogComponent {
 	blogId = input.required<number>();
-	private readonly blogService = inject(BlogService);
+	private readonly blogDetailService = inject(BlogDetailService);
 	blog = resource({
 		request: () => ({ blogId: this.blogId() }),
-		loader: ({ request }) => this.blogService.getBlog(request.blogId),
+		loader: ({ request }) => this.blogDetailService.getBlog(request.blogId),
 	});
 }

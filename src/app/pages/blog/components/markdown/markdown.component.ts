@@ -1,9 +1,13 @@
-import {BLOCKQUOTES_CLASS, BLOCKQUOTES_LABEL, isBlockquoteLabel} from '@/constants/blockquote.constant';
-import type {Agenda} from '@/models/agenda.model';
-import {BlogService} from '@/services/blog/blog.service';
-import {Component, ElementRef, inject, input} from '@angular/core';
-import {marked, type Token, type TokensList} from 'marked';
-import {MarkdownComponent as NgxMarkdownComponent} from 'ngx-markdown';
+import {
+	BLOCKQUOTES_CLASS,
+	BLOCKQUOTES_LABEL,
+	isBlockquoteLabel,
+} from '@/constants/blockquote.constant';
+import type { Agenda } from '@/models/agenda.model';
+import { BlogDetailService } from '@/services/blog-detail/blog-detail.service';
+import { Component, ElementRef, inject, input } from '@angular/core';
+import { type Token, type TokensList, marked } from 'marked';
+import { MarkdownComponent as NgxMarkdownComponent } from 'ngx-markdown';
 
 @Component({
 	selector: 'app-markdown',
@@ -22,7 +26,7 @@ import {MarkdownComponent as NgxMarkdownComponent} from 'ngx-markdown';
 export class MarkdownComponent {
 	blog = input.required<string>();
 	private readonly elementRef = inject(ElementRef);
-	private readonly blogService = inject(BlogService);
+	private readonly blogService = inject(BlogDetailService);
 
 	readyMarkdown(): void {
 		this.highlightBlockquote();
