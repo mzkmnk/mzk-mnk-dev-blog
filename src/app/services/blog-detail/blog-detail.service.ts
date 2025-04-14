@@ -11,9 +11,9 @@ export class BlogDetailService {
 
 	agenda = computed(() => this._agenda());
 
-	async getBlog(id: number): Promise<string> {
+	async getBlog(filePath: string): Promise<string> {
 		return await firstValueFrom(
-			this.http.get('blogs/signal.md', { responseType: 'text' }),
+			this.http.get(filePath, { responseType: 'text' }),
 		);
 	}
 

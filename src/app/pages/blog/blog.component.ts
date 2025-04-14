@@ -1,5 +1,6 @@
 import { AgendaComponent } from '@/pages/blog/components/agenda/agenda.component';
 import { BlogDetailService } from '@/services/blog-detail/blog-detail.service';
+import { BlogsService } from '@/services/blogs/blogs.service';
 import { Component, inject, input, resource } from '@angular/core';
 import { MarkdownComponent } from './components/markdown/markdown.component';
 
@@ -26,9 +27,16 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 })
 export class BlogComponent {
 	blogId = input.required<number>();
+
 	private readonly blogDetailService = inject(BlogDetailService);
 	blog = resource({
-		request: () => ({ blogId: this.blogId() }),
-		loader: ({ request }) => this.blogDetailService.getBlog(request.blogId),
+		request: () => ({ blogId: this.blogId(), blogs: this.blogs() }),
+		loader: ({ request }) => {
+			const { blogId, blogs } = request;
+
+			return this.blogDetailService.getBlog(blogs[blogId - 1].filePath);
+		},
 	});
+	private readonly blogsService = inject(BlogsService);
+	blogs = this.blogsService.blogs;
 }
