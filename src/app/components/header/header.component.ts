@@ -9,7 +9,7 @@ import { NavItemComponent } from './nav-item.component';
 	imports: [NavItemComponent, NgIcon],
 	providers: [provideIcons({ tablerSearch })],
 	template: `
-    <header class="h-20">
+    <header class="h-20 bg-gray-50/30 backdrop-blur-md">
       <div class="flex h-full items-center justify-between px-6">
         <h3 class="font-semibold">MZK.MNK.DEV</h3>
         <ul class="flex gap-10 items-center">
