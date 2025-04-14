@@ -1,8 +1,7 @@
 import { CardComponent } from '@/components/card/card.component';
 import { ChipComponent } from '@/components/chip/chip.component';
-import type { Blog } from '@/models/blog.model';
+import { BlogsService } from '@/services/blogs/blogs.service';
 import { DatePipe } from '@angular/common';
-import { httpResource } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -14,7 +13,7 @@ import { Router } from '@angular/router';
 	},
 	template: `
     <div class="grid gap-14 grid-cols-[repeat(auto-fill,minmax(24rem,24rem))] justify-center">
-      @for (blog of blogs.value();let i = $index; track i) {
+      @for (blog of blogs();let i = $index; track i) {
         <app-card (onClick)="navigateBlog(i+1)">
           <div class="flex flex-col gap-2 w-full items-start" card-content>
             <div class="flex gap-2 overflow-x-auto">
@@ -32,10 +31,8 @@ import { Router } from '@angular/router';
   `,
 })
 export class TopComponent {
-	blogs = httpResource<Blog[]>(() => ({
-		method: 'POST',
-		url: 'blogs/index.json',
-	}));
+	private readonly blogsService = inject(BlogsService);
+	blogs = this.blogsService.blogs;
 	private router = inject(Router);
 
 	async navigateBlog(blogId: number): Promise<void> {
