@@ -13,7 +13,7 @@ export class BlogDetailService {
 
 	async getBlog(filePath: string): Promise<string> {
 		return await firstValueFrom(
-			this.http.get(filePath, { responseType: 'text' }),
+			this.http.get(`${filePath}`, { responseType: 'text' }),
 		);
 	}
 
