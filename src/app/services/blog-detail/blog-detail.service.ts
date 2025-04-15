@@ -12,8 +12,10 @@ export class BlogDetailService {
 	agenda = computed(() => this._agenda());
 
 	async getBlog(filePath: string): Promise<string> {
+		console.log(filePath);
+
 		return await firstValueFrom(
-			this.http.get(filePath, { responseType: 'text' }),
+			this.http.get(`${filePath}`, { responseType: 'text' }),
 		);
 	}
 
