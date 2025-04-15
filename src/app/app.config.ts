@@ -4,6 +4,7 @@ import {provideRouter, withComponentInputBinding} from '@angular/router';
 import { routes } from './app.routes';
 import {provideHttpClient} from '@angular/common/http';
 import {MARKED_OPTIONS, provideMarkdown} from 'ngx-markdown';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +19,6 @@ export const appConfig: ApplicationConfig = {
           breaks: true,
         }
       }
-    })
+    }), provideClientHydration(withEventReplay())
   ]
 };
