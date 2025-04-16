@@ -1,20 +1,120 @@
 @import "tailwindcss";
 
+@import url("https://fonts.googleapis.com/css2?family=Madimi+One&family=Noto+Sans+JP&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap");
+
+@theme {
+	--font-sans: "Noto Sans JP", sans-serif;
+}
+
 @layer base {
-  h1 {
-    font-size: var(--text-5xl);
-  }
+	html {
+		color: var(--color-gray-800);
 
-  h2 {
-    font-size: var(--text-4xl);
-  }
+		@apply font-sans;
+	}
 
-  h3 {
-    font-size: var(--text-3xl);
-  }
+	h1 {
+		font-size: var(--text-4xl);
+	}
 
-  body {
-    background-color: var(--color-gray-50);
-    margin-bottom: 2rem;
-  }
+	h2 {
+		font-size: var(--text-3xl);
+	}
+
+	h3 {
+		font-size: var(--text-2xl);
+	}
+
+	h4 {
+		font-size: var(--text-xl);
+	}
+
+	p {
+		font-size: var(--text-sm);
+	}
+
+	body {
+		background-color: var(--color-gray-50);
+		margin-bottom: 2rem;
+	}
+
+	markdown blockquote {
+		border-left: 4px solid var(--color-gray-300);
+		padding: 0.2em 1em;
+		color: var(--color-gray-600);
+	}
+
+	markdown blockquote.info,
+	markdown blockquote.warning,
+	markdown blockquote.error,
+	markdown blockquote.success {
+		background-color: var(--color-gray-100);
+		border-left: 4px solid var(--color-gray-400);
+		margin: 1em 0;
+		padding: 0.8em 1em;
+		color: #24292f;
+		border-radius: 0.2rem;
+	}
+
+	markdown blockquote.info {
+		background-color: var(--color-sky-100);
+		border-left-color: var(--color-blue-400);
+	}
+
+	markdown blockquote.info strong {
+		color: var(--color-blue-700);
+	}
+
+	markdown blockquote.warning {
+		background-color: var(--color-orange-100);
+		border-left-color: var(--color-orange-400);
+	}
+
+	markdown blockquote.warning strong {
+		color: var(--color-orange-500);
+	}
+
+	markdown blockquote.error {
+		background-color: var(--color-red-100);
+		border-left-color: var(--color-red-400);
+	}
+
+	markdown blockquote.error strong {
+		color: var(--color-red-500);
+	}
+
+	markdown blockquote.success {
+		background-color: var(--color-green-100);
+		border-left-color: var(--color-green-400);
+	}
+
+	markdown blockquote.success strong {
+		color: var(--color-green-500);
+	}
+
+	markdown pre {
+		border-radius: var(--radius-2xl);
+
+		font-size: var(--text-xs) !important;
+	}
+
+	markdown hr {
+		border: 0;
+		height: 1px;
+		background-color: var(--color-gray-300);
+		margin: 1rem 0;
+		border-radius: var(--radius-2xl);
+	}
+
+	markdown h1,
+	markdown h2,
+	markdown h3 {
+		padding-bottom: 0.7rem;
+		margin-bottom: 0.7rem;
+		border-bottom: 1px solid var(--color-gray-300);
+	}
+
+	markdown h4 code {
+		font-size: var(--text-sm);
+	}
 }
