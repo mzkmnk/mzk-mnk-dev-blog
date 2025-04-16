@@ -5,17 +5,6 @@ import type { ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
 	{
-		path: 'blog/:blogId',
-		renderMode: RenderMode.Prerender,
-		async getPrerenderParams() {
-			return [
-				{
-					blogId: '1',
-				},
-			];
-		},
-	},
-	{
 		path: '**',
 		renderMode: RenderMode.Server,
 	},
