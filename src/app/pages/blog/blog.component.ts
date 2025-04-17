@@ -1,7 +1,7 @@
 import { AgendaComponent } from '@/pages/blog/components/agenda/agenda.component';
-import { BlogDetailService } from '@/services/blog-detail/blog-detail.service';
 import { BlogsService } from '@/services/blogs/blogs.service';
-import { Component, inject, input, resource } from '@angular/core';
+import { httpResource } from '@angular/common/http';
+import { Component, computed, inject, input } from '@angular/core';
 import { MarkdownComponent } from './components/markdown/markdown.component';
 
 @Component({
@@ -13,14 +13,15 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 	},
 	template: `
     <div class="flex w-312 justify-center gap-8">
-      @if(blog.isLoading()){
+			
+			@let value = blog.value();
+			
+			@defer(when value !== undefined && value !== ''){
+				
+					<app-markdown [blog]="value ?? ''" />
+					
+					<app-agenda />
 
-        <!-- TODO create loading component -->
-
-      }@else{
-        <app-markdown [blog]="blog.value() ?? ''" />
-
-        <app-agenda />
       }
     </div>
   `,
@@ -28,15 +29,17 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 export class BlogComponent {
 	blogId = input.required<number>();
 
-	private readonly blogDetailService = inject(BlogDetailService);
-	blog = resource({
-		request: () => ({ blogId: this.blogId(), blogs: this.blogs() }),
-		loader: ({ request }) => {
-			const { blogId, blogs } = request;
-
-			return this.blogDetailService.getBlog(blogs[blogId - 1].filePath);
-		},
-	});
 	private readonly blogsService = inject(BlogsService);
+
 	blogs = this.blogsService.blogs;
+
+	private readonly filePath = computed(() => {
+		if (this.blogs().length === 0) return undefined;
+
+		return this.blogs()[this.blogId() - 1].filePath;
+	});
+
+	blog = httpResource.text<string>(() =>
+		this.filePath() ? this.filePath() : undefined,
+	);
 }
