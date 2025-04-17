@@ -1,9 +1,9 @@
-import { CardComponent } from '@/components/card/card.component';
-import { ChipComponent } from '@/components/chip/chip.component';
-import { BlogsService } from '@/services/blogs/blogs.service';
-import { DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import {CardComponent} from '@/components/card/card.component';
+import {ChipComponent} from '@/components/chip/chip.component';
+import {BlogsService} from '@/services/blogs/blogs.service';
+import {DatePipe} from '@angular/common';
+import {Component, inject} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
 	selector: 'app-top',
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 		class: 'w-full',
 	},
 	template: `
-    <div class="grid gap-14 grid-cols-[repeat(auto-fill,minmax(24rem,24rem))] justify-center">
+    <div class="md:grid md:gap-14 md:grid-cols-[repeat(auto-fill,minmax(24rem,24rem))] md:justify-center flex flex-col gap-4">
       @for (blog of blogs();let i = $index; track i) {
         <app-card (onClick)="navigateBlog(i+1)">
           <div class="flex flex-col gap-2 w-full items-start" card-content>

@@ -1,10 +1,10 @@
-import { BlogDetailService } from '@/services/blog-detail/blog-detail.service';
-import { Component, inject } from '@angular/core';
+import {BlogDetailService} from '@/services/blog-detail/blog-detail.service';
+import {Component, inject} from '@angular/core';
 
 @Component({
 	selector: 'app-agenda',
 	template: `
-    <div class="sticky top-24 bg-gray-200 min-w-76 rounded-xl lg:flex lg:flex-col lg:gap-4 hidden self-start p-5">
+    <div class="sticky top-24 bg-gray-200 min-w-76 rounded-xl lg:flex lg:flex-col lg:gap-4 hidden lg:self-start p-5">
       <h4>目次</h4>
       <div class="flex flex-col gap-4">
         @for(item of agenda(); let i = $index; track i){
