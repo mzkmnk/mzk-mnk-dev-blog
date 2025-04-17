@@ -1,15 +1,7 @@
 import { AgendaComponent } from '@/pages/blog/components/agenda/agenda.component';
-import { BlogDetailService } from '@/services/blog-detail/blog-detail.service';
 import { BlogsService } from '@/services/blogs/blogs.service';
 import { httpResource } from '@angular/common/http';
-import {
-	Component,
-	computed,
-	effect,
-	inject,
-	input,
-	resource,
-} from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { MarkdownComponent } from './components/markdown/markdown.component';
 
 @Component({
@@ -24,11 +16,11 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 			
 			@let value = blog.value();
 			
-      @if(value !== undefined && value !== ''){
+			@defer(when value !== undefined && value !== ''){
 				
-				<app-markdown [blog]="value" />
-				
-				<app-agenda />
+					<app-markdown [blog]="value ?? ''" />
+					
+					<app-agenda />
 
       }
     </div>
@@ -40,8 +32,6 @@ export class BlogComponent {
 	private readonly blogsService = inject(BlogsService);
 
 	blogs = this.blogsService.blogs;
-
-	private readonly blogDetailService = inject(BlogDetailService);
 
 	private readonly filePath = computed(() => {
 		if (this.blogs().length === 0) return undefined;
