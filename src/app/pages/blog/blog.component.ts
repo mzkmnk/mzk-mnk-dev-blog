@@ -17,7 +17,7 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 			@let value = blog.value();
 			
 			@defer(when value !== undefined && value !== ''){
-				
+          
 					<app-markdown [blog]="value ?? ''" />
 					
 					<app-agenda />
