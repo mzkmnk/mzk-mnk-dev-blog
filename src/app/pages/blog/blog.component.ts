@@ -12,12 +12,12 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 		class: 'flex justify-center w-full',
 	},
 	template: `
-    <div class="flex w-312 justify-center gap-8">
+    <div class="flex md:w-312 w-full justify-center gap-8">
 			
 			@let value = blog.value();
 			
 			@defer(when value !== undefined && value !== ''){
-				
+          
 					<app-markdown [blog]="value ?? ''" />
 					
 					<app-agenda />

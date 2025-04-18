@@ -13,7 +13,7 @@ import { MarkdownComponent as NgxMarkdownComponent } from 'ngx-markdown';
 	selector: 'app-markdown',
 	imports: [NgxMarkdownComponent],
 	host: {
-		class: 'flex-auto p-5',
+		class: 'w-full md:flex-auto',
 	},
 	template: `
     <markdown

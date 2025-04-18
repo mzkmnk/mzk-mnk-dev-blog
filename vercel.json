@@ -1,8 +1,0 @@
-{
-	"rewrites": [{ "source": "/(.*)", "destination": "/api" }],
-	"functions": {
-		"api/index.mjs": {
-			"includeFiles": "dist/mzk-mnk-dev-blog/server/**"
-		}
-	}
-}
