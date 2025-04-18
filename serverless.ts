@@ -5,8 +5,6 @@ const system = 'mzk-mnk-dev-blog';
 const serverlessConfig: AWS = {
 	service: system,
 
-	frameworkVersion: '3',
-
 	plugins: ['serverless-deployment-bucket'],
 
 	provider: {
