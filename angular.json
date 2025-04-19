@@ -40,6 +40,11 @@
 						}
 					},
 					"configurations": {
+						"serverless": {
+							"ssr": {
+								"entry": "handler.ts"
+							}
+						},
 						"production": {
 							"budgets": [
 								{
