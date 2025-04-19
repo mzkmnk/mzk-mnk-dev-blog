@@ -9,37 +9,43 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 	standalone: true,
 	imports: [MarkdownComponent, AgendaComponent],
 	host: {
-		class: 'flex justify-center w-full',
+		class: 'flex flex-col items-center justify-start gap-10 w-full',
 	},
 	template: `
-    <div class="flex md:w-312 w-full justify-center gap-8">
+		
+		<div class="flex flex-col items-center gap-6">
+			<h1>{{blog()?.title}}</h1>
+			<p class="text-base">{{blog()?.description}}</p>
+		</div>
+		
+		<div class="flex gap-8 w-full">
 			
-			@let value = blog.value();
+			@let value = blogString.value();
 			
-			@defer(when value !== undefined && value !== ''){
-          
-					<app-markdown [blog]="value ?? ''" />
-					
-					<app-agenda />
-
-      }
-    </div>
-  `,
+			@defer (when value !== undefined && value !== '') {
+				
+				<app-markdown [blog]="value ?? ''"/>
+				
+				<app-agenda/>
+				
+			}
+		</div>
+	`,
 })
 export class BlogComponent {
-	blogId = input.required<number>();
-
 	private readonly blogsService = inject(BlogsService);
+
+	blogId = input.required<number>();
 
 	blogs = this.blogsService.blogs;
 
-	private readonly filePath = computed(() => {
+	blog = computed(() => {
 		if (this.blogs().length === 0) return undefined;
 
-		return this.blogs()[this.blogId() - 1].filePath;
+		return this.blogs()[this.blogId() - 1];
 	});
 
-	blog = httpResource.text<string>(() =>
-		this.filePath() ? this.filePath() : undefined,
+	blogString = httpResource.text<string>(() =>
+		this.blog()?.filePath ? this.blog()?.filePath : undefined,
 	);
 }
