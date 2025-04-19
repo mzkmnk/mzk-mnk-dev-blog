@@ -1,9 +1,9 @@
 import type { AWS } from '@serverless/typescript';
 
-const system = 'mzk-mnk-dev-blog';
+const serviceName = 'mzk-mnk-dev-blog';
 
 const serverlessConfig: AWS = {
-	service: system,
+	service: serviceName,
 
 	plugins: [
 		'serverless-deployment-bucket',
@@ -27,7 +27,7 @@ const serverlessConfig: AWS = {
 		architecture: 'arm64',
 		stackName: '${param:prefix}-stack',
 		stackTags: {
-			System: system,
+			System: serviceName,
 			Stage: '${sls:stage}',
 			Serverless: 'true',
 		},
@@ -45,7 +45,7 @@ const serverlessConfig: AWS = {
 
 	functions: {
 		app: {
-			handler: `dist/${system}/server/server.main`,
+			handler: `dist/${serviceName}/server/server.main`,
 			name: '${param:prefix}-lambda',
 			memorySize: 1769,
 			timeout: 60,
@@ -60,7 +60,7 @@ const serverlessConfig: AWS = {
 
 	params: {
 		default: {
-			prefix: system,
+			prefix: serviceName,
 		},
 	},
 
