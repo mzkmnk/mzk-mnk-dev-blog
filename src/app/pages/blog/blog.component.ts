@@ -9,12 +9,12 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 	standalone: true,
 	imports: [MarkdownComponent, AgendaComponent],
 	host: {
-		class: 'flex flex-col items-center justify-start gap-10 w-full',
+		class: 'flex flex-col items-center justify-start gap-16 w-full',
 	},
 	template: `
 		
-		<div class="flex flex-col items-center gap-6">
-			<h1>{{blog()?.title}}</h1>
+		<div class="flex flex-col items-center gap-2 md:gap-6 text-center md:w-2/3">
+			<h2 class="font-bold">{{blog()?.title}}</h2>
 			<p class="text-base">{{blog()?.description}}</p>
 		</div>
 		

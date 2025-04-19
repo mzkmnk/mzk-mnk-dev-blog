@@ -10,6 +10,7 @@ import { tablerHash } from '@ng-icons/tabler-icons';
       <ng-icon
         class="text-sm"
         name="tablerHash"
+				strokeWidth="2"
       />
       {{ tag() }}
     </div>
