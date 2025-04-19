@@ -11,7 +11,8 @@
 		"deploy": "pnpm run build --configuration=serverless && pnpm run serverless deploy",
 		"remove": "pnpm run serverless -- remove",
 		"preinstall": "npx only-allow pnpm",
-		"serve:ssr:mzk-mnk-dev-blog": "node dist/mzk-mnk-dev-blog/server/server.mjs"
+		"serve:ssr:mzk-mnk-dev-blog": "node dist/mzk-mnk-dev-blog/server/server.mjs",
+		"dev": "pnpm run build && pnpm run serve:ssr:mzk-mnk-dev-blog"
 	},
 	"private": true,
 	"dependencies": {

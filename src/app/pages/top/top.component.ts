@@ -1,9 +1,9 @@
-import {CardComponent} from '@/components/card/card.component';
-import {ChipComponent} from '@/components/chip/chip.component';
-import {BlogsService} from '@/services/blogs/blogs.service';
-import {DatePipe} from '@angular/common';
-import {Component, inject} from '@angular/core';
-import {Router} from '@angular/router';
+import { CardComponent } from '@/components/card/card.component';
+import { ChipComponent } from '@/components/chip/chip.component';
+import { BlogsService } from '@/services/blogs/blogs.service';
+import { DatePipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-top',
@@ -22,7 +22,7 @@ import {Router} from '@angular/router';
                 <app-chip [tag]="tag" />
               }
             </div>
-            <p class="font-semibold underline text-lg">{{blog.title}}</p>
+            <p class="font-semibold text-lg transition group-hover:text-sky-600">{{blog.title}}</p>
             <p class="text-gray-500 text-xs">{{blog.createdAt | date: 'yyyy-MM-dd'}}</p>
           </div>
         </app-card>
