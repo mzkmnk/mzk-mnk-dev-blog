@@ -1,13 +1,24 @@
 {
   "/Users/mzkmnk/dev/mzk-mnk-dev-blog/serverless.ts": {
-    "versionFramework": "4.14.0",
+    "versionFramework": "4.14.1",
     "servicePath": "/Users/mzkmnk/dev/mzk-mnk-dev-blog/serverless.ts",
     "serviceConfigFileName": "serverless.ts",
     "service": {
       "service": "mzk-mnk-dev-blog",
       "plugins": [
-        "serverless-deployment-bucket"
+        "serverless-deployment-bucket",
+        "serverless-aws-function-url-custom-domain"
       ],
+      "custom": {
+        "urlDomain": {
+          "domains": [
+            "blog.mzkmnk.net"
+          ],
+          "hostedZoneName": "mzkmnk.net.",
+          "certificateArn": "arn:aws:acm:us-east-1:796092240090:certificate/b20d4659-232b-4707-b760-b48965ea86bb",
+          "lambdaFunctionUrl": "AppLambdaFunctionUrl"
+        }
+      },
       "provider": {
         "name": "aws",
         "stage": "prod",
@@ -113,7 +124,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "mzk-mnk-dev-blog-deployment-bucket",
-                  "S3Key": "serverless/mzk-mnk-dev-blog/prod/1744985717001-2025-04-18T14:15:17.001Z/app.zip"
+                  "S3Key": "serverless/mzk-mnk-dev-blog/prod/1745037902035-2025-04-19T04:45:02.035Z/app.zip"
                 },
                 "Handler": "dist/mzk-mnk-dev-blog/server/server.main",
                 "Runtime": "nodejs22.x",
@@ -172,6 +183,114 @@
                 "Principal": "*",
                 "FunctionUrlAuthType": "NONE"
               }
+            },
+            "CloudFrontDistribution": {
+              "Type": "AWS::CloudFront::Distribution",
+              "DeletionPolicy": "Delete",
+              "Properties": {
+                "DistributionConfig": {
+                  "Enabled": true,
+                  "PriceClass": "PriceClass_100",
+                  "HttpVersion": "http2",
+                  "Comment": "Lambda FunctionURL blog.mzkmnk.net",
+                  "Origins": [
+                    {
+                      "Id": "LambdaFunctionURL",
+                      "DomainName": {
+                        "Fn::Select": [
+                          2,
+                          {
+                            "Fn::Split": [
+                              "/",
+                              {
+                                "Fn::GetAtt": [
+                                  "AppLambdaFunctionUrl",
+                                  "FunctionUrl"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "OriginPath": "",
+                      "CustomOriginConfig": {
+                        "HTTPPort": 80,
+                        "HTTPSPort": 443,
+                        "OriginProtocolPolicy": "https-only",
+                        "OriginSSLProtocols": [
+                          "TLSv1",
+                          "TLSv1.1",
+                          "TLSv1.2"
+                        ]
+                      }
+                    }
+                  ],
+                  "DefaultCacheBehavior": {
+                    "TargetOriginId": "LambdaFunctionURL",
+                    "ViewerProtocolPolicy": "redirect-to-https",
+                    "Compress": true,
+                    "DefaultTTL": 0,
+                    "AllowedMethods": [
+                      "HEAD",
+                      "DELETE",
+                      "POST",
+                      "GET",
+                      "OPTIONS",
+                      "PUT",
+                      "PATCH"
+                    ],
+                    "CachedMethods": [
+                      "HEAD",
+                      "OPTIONS",
+                      "GET"
+                    ],
+                    "ForwardedValues": {
+                      "QueryString": true,
+                      "Headers": [
+                        "Accept",
+                        "x-api-key",
+                        "Authorization"
+                      ],
+                      "Cookies": {
+                        "Forward": "all"
+                      }
+                    }
+                  },
+                  "Aliases": [
+                    "blog.mzkmnk.net"
+                  ],
+                  "ViewerCertificate": {
+                    "SslSupportMethod": "sni-only",
+                    "MinimumProtocolVersion": "TLSv1.2_2021",
+                    "AcmCertificateArn": "arn:aws:acm:us-east-1:796092240090:certificate/b20d4659-232b-4707-b760-b48965ea86bb"
+                  }
+                }
+              }
+            },
+            "Route53Record0": {
+              "Type": "AWS::Route53::RecordSetGroup",
+              "DeletionPolicy": "Delete",
+              "DependsOn": [
+                "CloudFrontDistribution"
+              ],
+              "Properties": {
+                "HostedZoneName": "mzkmnk.net.",
+                "RecordSets": [
+                  {
+                    "Name": "blog.mzkmnk.net",
+                    "Type": "A",
+                    "AliasTarget": {
+                      "HostedZoneId": "Z2FDTNDATAQYW2",
+                      "DNSName": {
+                        "Fn::GetAtt": [
+                          "CloudFrontDistribution",
+                          "DomainName"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
             }
           },
           "Outputs": {
@@ -200,6 +319,17 @@
               },
               "Export": {
                 "Name": "sls-mzk-mnk-dev-blog-prod-AppLambdaFunctionUrl"
+              }
+            },
+            "CloudFrontDistributionDomain": {
+              "Value": {
+                "Fn::GetAtt": [
+                  "CloudFrontDistribution",
+                  "DomainName"
+                ]
+              },
+              "Export": {
+                "Name": "sls-mzk-mnk-dev-blog-prod-CloudFrontDistributionDomain"
               }
             }
           }
@@ -231,7 +361,7 @@
         "individually": true,
         "artifactsS3KeyDirname": "serverless/mzk-mnk-dev-blog/prod/code-artifacts",
         "deploymentBucket": "mzk-mnk-dev-blog-deployment-bucket",
-        "artifactDirectoryName": "serverless/mzk-mnk-dev-blog/prod/1744985717001-2025-04-18T14:15:17.001Z"
+        "artifactDirectoryName": "serverless/mzk-mnk-dev-blog/prod/1745037902035-2025-04-19T04:45:02.035Z"
       },
       "params": {
         "default": {
@@ -348,7 +478,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "mzk-mnk-dev-blog-deployment-bucket",
-                "S3Key": "serverless/mzk-mnk-dev-blog/prod/1744985717001-2025-04-18T14:15:17.001Z/app.zip"
+                "S3Key": "serverless/mzk-mnk-dev-blog/prod/1745037902035-2025-04-19T04:45:02.035Z/app.zip"
               },
               "Handler": "dist/mzk-mnk-dev-blog/server/server.main",
               "Runtime": "nodejs22.x",
@@ -407,6 +537,114 @@
               "Principal": "*",
               "FunctionUrlAuthType": "NONE"
             }
+          },
+          "CloudFrontDistribution": {
+            "Type": "AWS::CloudFront::Distribution",
+            "DeletionPolicy": "Delete",
+            "Properties": {
+              "DistributionConfig": {
+                "Enabled": true,
+                "PriceClass": "PriceClass_100",
+                "HttpVersion": "http2",
+                "Comment": "Lambda FunctionURL blog.mzkmnk.net",
+                "Origins": [
+                  {
+                    "Id": "LambdaFunctionURL",
+                    "DomainName": {
+                      "Fn::Select": [
+                        2,
+                        {
+                          "Fn::Split": [
+                            "/",
+                            {
+                              "Fn::GetAtt": [
+                                "AppLambdaFunctionUrl",
+                                "FunctionUrl"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "OriginPath": "",
+                    "CustomOriginConfig": {
+                      "HTTPPort": 80,
+                      "HTTPSPort": 443,
+                      "OriginProtocolPolicy": "https-only",
+                      "OriginSSLProtocols": [
+                        "TLSv1",
+                        "TLSv1.1",
+                        "TLSv1.2"
+                      ]
+                    }
+                  }
+                ],
+                "DefaultCacheBehavior": {
+                  "TargetOriginId": "LambdaFunctionURL",
+                  "ViewerProtocolPolicy": "redirect-to-https",
+                  "Compress": true,
+                  "DefaultTTL": 0,
+                  "AllowedMethods": [
+                    "HEAD",
+                    "DELETE",
+                    "POST",
+                    "GET",
+                    "OPTIONS",
+                    "PUT",
+                    "PATCH"
+                  ],
+                  "CachedMethods": [
+                    "HEAD",
+                    "OPTIONS",
+                    "GET"
+                  ],
+                  "ForwardedValues": {
+                    "QueryString": true,
+                    "Headers": [
+                      "Accept",
+                      "x-api-key",
+                      "Authorization"
+                    ],
+                    "Cookies": {
+                      "Forward": "all"
+                    }
+                  }
+                },
+                "Aliases": [
+                  "blog.mzkmnk.net"
+                ],
+                "ViewerCertificate": {
+                  "SslSupportMethod": "sni-only",
+                  "MinimumProtocolVersion": "TLSv1.2_2021",
+                  "AcmCertificateArn": "arn:aws:acm:us-east-1:796092240090:certificate/b20d4659-232b-4707-b760-b48965ea86bb"
+                }
+              }
+            }
+          },
+          "Route53Record0": {
+            "Type": "AWS::Route53::RecordSetGroup",
+            "DeletionPolicy": "Delete",
+            "DependsOn": [
+              "CloudFrontDistribution"
+            ],
+            "Properties": {
+              "HostedZoneName": "mzkmnk.net.",
+              "RecordSets": [
+                {
+                  "Name": "blog.mzkmnk.net",
+                  "Type": "A",
+                  "AliasTarget": {
+                    "HostedZoneId": "Z2FDTNDATAQYW2",
+                    "DNSName": {
+                      "Fn::GetAtt": [
+                        "CloudFrontDistribution",
+                        "DomainName"
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
           }
         },
         "Outputs": {
@@ -436,6 +674,17 @@
             "Export": {
               "Name": "sls-mzk-mnk-dev-blog-prod-AppLambdaFunctionUrl"
             }
+          },
+          "CloudFrontDistributionDomain": {
+            "Value": {
+              "Fn::GetAtt": [
+                "CloudFrontDistribution",
+                "DomainName"
+              ]
+            },
+            "Export": {
+              "Name": "sls-mzk-mnk-dev-blog-prod-CloudFrontDistributionDomain"
+            }
           }
         }
       },
@@ -450,7 +699,7 @@
       "serviceProvider": null,
       "instanceParameters": null
     },
-    "serviceRawFile": "import type { AWS } from '@serverless/typescript';\n\nconst system = 'mzk-mnk-dev-blog';\n\nconst serverlessConfig: AWS = {\n\tservice: system,\n\n\tplugins: ['serverless-deployment-bucket'],\n\n\tprovider: {\n\t\tname: 'aws',\n\t\tstage: 'prod',\n\t\tregion: 'ap-northeast-1',\n\t\truntime: 'nodejs22.x',\n\t\tarchitecture: 'arm64',\n\t\tstackName: '${param:prefix}-stack',\n\t\tstackTags: {\n\t\t\tSystem: system,\n\t\t\tStage: '${sls:stage}',\n\t\t\tServerless: 'true',\n\t\t},\n\t\tdeploymentBucket: {\n\t\t\tname: '${param:prefix}-deployment-bucket',\n\t\t\tserverSideEncryption: 'AES256',\n\t\t},\n\t\tiam: {\n\t\t\trole: {\n\t\t\t\tname: '${param:prefix}-lambda-role',\n\t\t\t},\n\t\t},\n\t\tenvironment: {},\n\t},\n\n\tfunctions: {\n\t\tapp: {\n\t\t\thandler: `dist/${system}/server/server.main`,\n\t\t\tname: '${param:prefix}-lambda',\n\t\t\tmemorySize: 1769,\n\t\t\ttimeout: 60,\n\t\t\turl: true,\n\t\t\tpackage: {\n\t\t\t\tpatterns: ['!**', 'dist/**'],\n\t\t\t},\n\t\t},\n\t},\n\n\tpackage: { individually: true },\n\n\tparams: {\n\t\tdefault: {\n\t\t\tprefix: system,\n\t\t},\n\t},\n\n\tresources: {},\n};\n\nmodule.exports = serverlessConfig;\n",
+    "serviceRawFile": "import type { AWS } from '@serverless/typescript';\n\nconst system = 'mzk-mnk-dev-blog';\n\nconst serverlessConfig: AWS = {\n\tservice: system,\n\n\tplugins: [\n\t\t'serverless-deployment-bucket',\n\t\t'serverless-aws-function-url-custom-domain',\n\t],\n\n\tcustom: {\n\t\turlDomain: {\n\t\t\tdomains: ['blog.mzkmnk.net'],\n\t\t\thostedZoneName: 'mzkmnk.net.',\n\t\t\tcertificateArn:\n\t\t\t\t'arn:aws:acm:us-east-1:796092240090:certificate/b20d4659-232b-4707-b760-b48965ea86bb',\n\t\t},\n\t},\n\n\tprovider: {\n\t\tname: 'aws',\n\t\tstage: 'prod',\n\t\tregion: 'ap-northeast-1',\n\t\truntime: 'nodejs22.x',\n\t\tarchitecture: 'arm64',\n\t\tstackName: '${param:prefix}-stack',\n\t\tstackTags: {\n\t\t\tSystem: system,\n\t\t\tStage: '${sls:stage}',\n\t\t\tServerless: 'true',\n\t\t},\n\t\tdeploymentBucket: {\n\t\t\tname: '${param:prefix}-deployment-bucket',\n\t\t\tserverSideEncryption: 'AES256',\n\t\t},\n\t\tiam: {\n\t\t\trole: {\n\t\t\t\tname: '${param:prefix}-lambda-role',\n\t\t\t},\n\t\t},\n\t\tenvironment: {},\n\t},\n\n\tfunctions: {\n\t\tapp: {\n\t\t\thandler: `dist/${system}/server/server.main`,\n\t\t\tname: '${param:prefix}-lambda',\n\t\t\tmemorySize: 1769,\n\t\t\ttimeout: 60,\n\t\t\turl: true,\n\t\t\tpackage: {\n\t\t\t\tpatterns: ['!**', 'dist/**'],\n\t\t\t},\n\t\t},\n\t},\n\n\tpackage: { individually: true },\n\n\tparams: {\n\t\tdefault: {\n\t\t\tprefix: system,\n\t\t},\n\t},\n\n\tresources: {},\n};\n\nmodule.exports = serverlessConfig;\n",
     "command": [
       "deploy"
     ],
@@ -546,7 +795,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "mzk-mnk-dev-blog-deployment-bucket",
-              "S3Key": "serverless/mzk-mnk-dev-blog/prod/1744985717001-2025-04-18T14:15:17.001Z/app.zip"
+              "S3Key": "serverless/mzk-mnk-dev-blog/prod/1745037902035-2025-04-19T04:45:02.035Z/app.zip"
             },
             "Handler": "dist/mzk-mnk-dev-blog/server/server.main",
             "Runtime": "nodejs22.x",
@@ -605,6 +854,114 @@
             "Principal": "*",
             "FunctionUrlAuthType": "NONE"
           }
+        },
+        "CloudFrontDistribution": {
+          "Type": "AWS::CloudFront::Distribution",
+          "DeletionPolicy": "Delete",
+          "Properties": {
+            "DistributionConfig": {
+              "Enabled": true,
+              "PriceClass": "PriceClass_100",
+              "HttpVersion": "http2",
+              "Comment": "Lambda FunctionURL blog.mzkmnk.net",
+              "Origins": [
+                {
+                  "Id": "LambdaFunctionURL",
+                  "DomainName": {
+                    "Fn::Select": [
+                      2,
+                      {
+                        "Fn::Split": [
+                          "/",
+                          {
+                            "Fn::GetAtt": [
+                              "AppLambdaFunctionUrl",
+                              "FunctionUrl"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "OriginPath": "",
+                  "CustomOriginConfig": {
+                    "HTTPPort": 80,
+                    "HTTPSPort": 443,
+                    "OriginProtocolPolicy": "https-only",
+                    "OriginSSLProtocols": [
+                      "TLSv1",
+                      "TLSv1.1",
+                      "TLSv1.2"
+                    ]
+                  }
+                }
+              ],
+              "DefaultCacheBehavior": {
+                "TargetOriginId": "LambdaFunctionURL",
+                "ViewerProtocolPolicy": "redirect-to-https",
+                "Compress": true,
+                "DefaultTTL": 0,
+                "AllowedMethods": [
+                  "HEAD",
+                  "DELETE",
+                  "POST",
+                  "GET",
+                  "OPTIONS",
+                  "PUT",
+                  "PATCH"
+                ],
+                "CachedMethods": [
+                  "HEAD",
+                  "OPTIONS",
+                  "GET"
+                ],
+                "ForwardedValues": {
+                  "QueryString": true,
+                  "Headers": [
+                    "Accept",
+                    "x-api-key",
+                    "Authorization"
+                  ],
+                  "Cookies": {
+                    "Forward": "all"
+                  }
+                }
+              },
+              "Aliases": [
+                "blog.mzkmnk.net"
+              ],
+              "ViewerCertificate": {
+                "SslSupportMethod": "sni-only",
+                "MinimumProtocolVersion": "TLSv1.2_2021",
+                "AcmCertificateArn": "arn:aws:acm:us-east-1:796092240090:certificate/b20d4659-232b-4707-b760-b48965ea86bb"
+              }
+            }
+          }
+        },
+        "Route53Record0": {
+          "Type": "AWS::Route53::RecordSetGroup",
+          "DeletionPolicy": "Delete",
+          "DependsOn": [
+            "CloudFrontDistribution"
+          ],
+          "Properties": {
+            "HostedZoneName": "mzkmnk.net.",
+            "RecordSets": [
+              {
+                "Name": "blog.mzkmnk.net",
+                "Type": "A",
+                "AliasTarget": {
+                  "HostedZoneId": "Z2FDTNDATAQYW2",
+                  "DNSName": {
+                    "Fn::GetAtt": [
+                      "CloudFrontDistribution",
+                      "DomainName"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
         }
       },
       "Outputs": {
@@ -633,6 +990,17 @@
           },
           "Export": {
             "Name": "sls-mzk-mnk-dev-blog-prod-AppLambdaFunctionUrl"
+          }
+        },
+        "CloudFrontDistributionDomain": {
+          "Value": {
+            "Fn::GetAtt": [
+              "CloudFrontDistribution",
+              "DomainName"
+            ]
+          },
+          "Export": {
+            "Name": "sls-mzk-mnk-dev-blog-prod-CloudFrontDistributionDomain"
           }
         }
       }

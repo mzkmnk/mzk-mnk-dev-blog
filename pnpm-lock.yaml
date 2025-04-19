@@ -120,6 +120,9 @@ importers:
       serverless:
         specifier: ^4.14.0
         version: 4.14.0
+      serverless-aws-function-url-custom-domain:
+        specifier: ^0.9.29
+        version: 0.9.29(serverless@4.14.0)
       serverless-deployment-bucket:
         specifier: ^1.6.0
         version: 1.6.0
@@ -3918,6 +3921,10 @@ packages:
     resolution: {integrity: sha512-2eznPJP8z2BFLX50tf0LuODrpINqP1RVIm/CObbTcBRITQgmC/TjcREF1NeTBzIcR5XO/ukWo+YHOjBbFwIupg==}
     hasBin: true
 
+  mustache@4.2.0:
+    resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
+    hasBin: true
+
   mute-stream@1.0.0:
     resolution: {integrity: sha512-avsJQhyd+680gKXyG/sQc0nXaC6rBkPOfyHYcFb9+hdkqQkR9bdnkJ0AMZhke0oesPqIO+mFFJ+IdBc7mst4IA==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
@@ -4513,6 +4520,12 @@ packages:
   serve-static@1.16.2:
     resolution: {integrity: sha512-VqpjJZKadQB/PEbEwvFdO43Ax5dFBZ2UECszz8bQ7pi7wt//PWe1P6MN7eCnjsatYtBT6EuiClbjSWP2WrIoTw==}
     engines: {node: '>= 0.8.0'}
+
+  serverless-aws-function-url-custom-domain@0.9.29:
+    resolution: {integrity: sha512-vWOUxI1tUcqUlyYmxz83EZO9k1Xn8aM4FNWv+eE3S5boWH+HF5wbJBhjAhWZ3PnJ4utFzmwYEWhHHPeMhAh9aw==}
+    engines: {node: '>=10.0'}
+    peerDependencies:
+      serverless: 3.x
 
   serverless-deployment-bucket@1.6.0:
     resolution: {integrity: sha512-IXllFmAeMl09u5pOEv5HHYvPgWf9TBkz+4NsOac8YhXgRYL4H9N2wgEh8vN+8/H3ej/2GcE08vcJK2Zc+hmVFw==}
@@ -9298,6 +9311,8 @@ snapshots:
       dns-packet: 5.6.1
       thunky: 1.1.0
 
+  mustache@4.2.0: {}
+
   mute-stream@1.0.0: {}
 
   mute-stream@2.0.0: {}
@@ -9957,6 +9972,13 @@ snapshots:
       send: 0.19.0
     transitivePeerDependencies:
       - supports-color
+
+  serverless-aws-function-url-custom-domain@0.9.29(serverless@4.14.0):
+    dependencies:
+      js-yaml: 4.1.0
+      lodash: 4.17.21
+      mustache: 4.2.0
+      serverless: 4.14.0
 
   serverless-deployment-bucket@1.6.0:
     dependencies:

@@ -5,7 +5,19 @@ const system = 'mzk-mnk-dev-blog';
 const serverlessConfig: AWS = {
 	service: system,
 
-	plugins: ['serverless-deployment-bucket'],
+	plugins: [
+		'serverless-deployment-bucket',
+		'serverless-aws-function-url-custom-domain',
+	],
+
+	custom: {
+		urlDomain: {
+			domains: ['blog.mzkmnk.net'],
+			hostedZoneName: 'mzkmnk.net.',
+			certificateArn:
+				'arn:aws:acm:us-east-1:796092240090:certificate/b20d4659-232b-4707-b760-b48965ea86bb',
+		},
+	},
 
 	provider: {
 		name: 'aws',
