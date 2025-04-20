@@ -124,7 +124,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "mzk-mnk-dev-blog-deployment-bucket",
-                  "S3Key": "serverless/mzk-mnk-dev-blog/prod/1745143173242-2025-04-20T09:59:33.242Z/app.zip"
+                  "S3Key": "serverless/mzk-mnk-dev-blog/prod/1745148452117-2025-04-20T11:27:32.117Z/app.zip"
                 },
                 "Handler": "dist/mzk-mnk-dev-blog/server/server.main",
                 "Runtime": "nodejs22.x",
@@ -148,14 +148,14 @@
                 "AppLogGroup"
               ]
             },
-            "AppLambdaVersionyhBvG4K9SWPOwJzfIVeo6sC4g8BFlJV1xil1qGpW0": {
+            "AppLambdaVersion1G2jpumaLPr3UFTlRFFzPx15irHBEX0gMZUCcFbg4kU": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "AppLambdaFunction"
                 },
-                "CodeSha256": "BcThOEbeJuyVSUsuLGqigJBY2dw8pU3JFB4tPffA/EU="
+                "CodeSha256": "0YsNpiuU1C+TYMwXStkRWkoGP2H7EwW6d4V8G0jLYY0="
               }
             },
             "AppLambdaFunctionUrl": {
@@ -303,7 +303,7 @@
             "AppLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "AppLambdaVersionyhBvG4K9SWPOwJzfIVeo6sC4g8BFlJV1xil1qGpW0"
+                "Ref": "AppLambdaVersion1G2jpumaLPr3UFTlRFFzPx15irHBEX0gMZUCcFbg4kU"
               },
               "Export": {
                 "Name": "sls-mzk-mnk-dev-blog-prod-AppLambdaFunctionQualifiedArn"
@@ -354,14 +354,14 @@
           "memory": 1769,
           "runtime": "nodejs22.x",
           "vpc": {},
-          "versionLogicalId": "AppLambdaVersionyhBvG4K9SWPOwJzfIVeo6sC4g8BFlJV1xil1qGpW0"
+          "versionLogicalId": "AppLambdaVersion1G2jpumaLPr3UFTlRFFzPx15irHBEX0gMZUCcFbg4kU"
         }
       },
       "package": {
         "individually": true,
         "artifactsS3KeyDirname": "serverless/mzk-mnk-dev-blog/prod/code-artifacts",
         "deploymentBucket": "mzk-mnk-dev-blog-deployment-bucket",
-        "artifactDirectoryName": "serverless/mzk-mnk-dev-blog/prod/1745143173242-2025-04-20T09:59:33.242Z"
+        "artifactDirectoryName": "serverless/mzk-mnk-dev-blog/prod/1745148452117-2025-04-20T11:27:32.117Z"
       },
       "params": {
         "default": {
@@ -478,7 +478,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "mzk-mnk-dev-blog-deployment-bucket",
-                "S3Key": "serverless/mzk-mnk-dev-blog/prod/1745143173242-2025-04-20T09:59:33.242Z/app.zip"
+                "S3Key": "serverless/mzk-mnk-dev-blog/prod/1745148452117-2025-04-20T11:27:32.117Z/app.zip"
               },
               "Handler": "dist/mzk-mnk-dev-blog/server/server.main",
               "Runtime": "nodejs22.x",
@@ -502,14 +502,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionyhBvG4K9SWPOwJzfIVeo6sC4g8BFlJV1xil1qGpW0": {
+          "AppLambdaVersion1G2jpumaLPr3UFTlRFFzPx15irHBEX0gMZUCcFbg4kU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "BcThOEbeJuyVSUsuLGqigJBY2dw8pU3JFB4tPffA/EU="
+              "CodeSha256": "0YsNpiuU1C+TYMwXStkRWkoGP2H7EwW6d4V8G0jLYY0="
             }
           },
           "AppLambdaFunctionUrl": {
@@ -657,7 +657,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionyhBvG4K9SWPOwJzfIVeo6sC4g8BFlJV1xil1qGpW0"
+              "Ref": "AppLambdaVersion1G2jpumaLPr3UFTlRFFzPx15irHBEX0gMZUCcFbg4kU"
             },
             "Export": {
               "Name": "sls-mzk-mnk-dev-blog-prod-AppLambdaFunctionQualifiedArn"
@@ -795,7 +795,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "mzk-mnk-dev-blog-deployment-bucket",
-              "S3Key": "serverless/mzk-mnk-dev-blog/prod/1745143173242-2025-04-20T09:59:33.242Z/app.zip"
+              "S3Key": "serverless/mzk-mnk-dev-blog/prod/1745148452117-2025-04-20T11:27:32.117Z/app.zip"
             },
             "Handler": "dist/mzk-mnk-dev-blog/server/server.main",
             "Runtime": "nodejs22.x",
@@ -819,14 +819,14 @@
             "AppLogGroup"
           ]
         },
-        "AppLambdaVersionyhBvG4K9SWPOwJzfIVeo6sC4g8BFlJV1xil1qGpW0": {
+        "AppLambdaVersion1G2jpumaLPr3UFTlRFFzPx15irHBEX0gMZUCcFbg4kU": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "AppLambdaFunction"
             },
-            "CodeSha256": "BcThOEbeJuyVSUsuLGqigJBY2dw8pU3JFB4tPffA/EU="
+            "CodeSha256": "0YsNpiuU1C+TYMwXStkRWkoGP2H7EwW6d4V8G0jLYY0="
           }
         },
         "AppLambdaFunctionUrl": {
@@ -974,7 +974,7 @@
         "AppLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "AppLambdaVersionyhBvG4K9SWPOwJzfIVeo6sC4g8BFlJV1xil1qGpW0"
+            "Ref": "AppLambdaVersion1G2jpumaLPr3UFTlRFFzPx15irHBEX0gMZUCcFbg4kU"
           },
           "Export": {
             "Name": "sls-mzk-mnk-dev-blog-prod-AppLambdaFunctionQualifiedArn"
