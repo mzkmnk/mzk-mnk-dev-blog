@@ -1,13 +1,24 @@
+import { ChipComponent } from '@/components/chip/chip.component';
 import { AgendaComponent } from '@/pages/blog/components/agenda/agenda.component';
 import { BlogsService } from '@/services/blogs/blogs.service';
+import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, computed, inject, input } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { tablerCalendarCode } from '@ng-icons/tabler-icons';
 import { MarkdownComponent } from './components/markdown/markdown.component';
 
 @Component({
 	selector: 'app-blog',
 	standalone: true,
-	imports: [MarkdownComponent, AgendaComponent],
+	providers: [provideIcons({ tablerCalendarCode })],
+	imports: [
+		MarkdownComponent,
+		AgendaComponent,
+		ChipComponent,
+		NgIcon,
+		DatePipe,
+	],
 	host: {
 		class: 'flex flex-col items-center justify-start gap-16 w-full',
 	},
@@ -16,6 +27,19 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 		<div class="flex flex-col items-center gap-2 md:gap-6 md:w-2/3">
 			<h2 class="text-center font-bold">{{blog()?.title}}</h2>
 			<p class="text-center text-base">{{blog()?.description}}</p>
+			
+			<div class="flex gap-2 items-center">
+				<ng-icon
+					name="tablerCalendarCode"
+				/>
+				<p>{{blog()?.createdAt | date: 'yyyy-MM-dd' }}</p>
+			</div>
+			
+			<div class="flex gap-1 items-center flex-wrap">
+				@for(tag of blog()?.tags; let i = $index; track i){
+					<app-chip [tag]="tag" [variant]="tag" />
+				}
+			</div>
 		</div>
 		
 		<div class="flex gap-8 w-full">
