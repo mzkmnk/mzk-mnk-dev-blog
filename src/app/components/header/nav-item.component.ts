@@ -3,9 +3,9 @@ import { Component, input, output } from '@angular/core';
 @Component({
 	selector: 'app-nav-item',
 	template: `
-    <li class="cursor-pointer" (click)="clickNavItem()">
+    <div class="cursor-pointer" (click)="clickNavItem()">
 			<p class="font-semibold">{{item()}}</p>
-    </li>
+    </div>
   `,
 })
 export class NavItemComponent {
