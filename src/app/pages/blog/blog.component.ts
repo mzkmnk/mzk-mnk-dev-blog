@@ -1,45 +1,75 @@
+import { ChipComponent } from '@/components/chip/chip.component';
 import { AgendaComponent } from '@/pages/blog/components/agenda/agenda.component';
 import { BlogsService } from '@/services/blogs/blogs.service';
+import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, computed, inject, input } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { tablerCalendarCode } from '@ng-icons/tabler-icons';
 import { MarkdownComponent } from './components/markdown/markdown.component';
 
 @Component({
 	selector: 'app-blog',
 	standalone: true,
-	imports: [MarkdownComponent, AgendaComponent],
+	providers: [provideIcons({ tablerCalendarCode })],
+	imports: [
+		MarkdownComponent,
+		AgendaComponent,
+		ChipComponent,
+		NgIcon,
+		DatePipe,
+	],
 	host: {
-		class: 'flex justify-center w-full',
+		class: 'flex flex-col items-center justify-start gap-16 w-full',
 	},
 	template: `
-    <div class="flex md:w-312 w-full justify-center gap-8">
+		
+		<div class="flex flex-col items-center gap-2 md:gap-6 md:w-2/3">
+			<h2 class="text-center font-bold">{{blog()?.title}}</h2>
+			<p class="text-center text-base">{{blog()?.description}}</p>
 			
-			@let value = blog.value();
+			<div class="flex gap-2 items-center">
+				<ng-icon
+					name="tablerCalendarCode"
+				/>
+				<p>{{blog()?.createdAt | date: 'yyyy-MM-dd' }}</p>
+			</div>
 			
-			@defer(when value !== undefined && value !== ''){
-          
-					<app-markdown [blog]="value ?? ''" />
-					
-					<app-agenda />
-
-      }
-    </div>
-  `,
+			<div class="flex gap-1 items-center flex-wrap">
+				@for(tag of blog()?.tags; let i = $index; track i){
+					<app-chip [tag]="tag" [variant]="tag" />
+				}
+			</div>
+		</div>
+		
+		<div class="flex gap-8 w-full">
+			
+			@let value = blogString.value();
+			
+			@defer (when value !== undefined && value !== '') {
+				
+				<app-markdown [blog]="value ?? ''"/>
+				
+				<app-agenda/>
+				
+			}
+		</div>
+	`,
 })
 export class BlogComponent {
-	blogId = input.required<number>();
-
 	private readonly blogsService = inject(BlogsService);
+
+	blogId = input.required<number>();
 
 	blogs = this.blogsService.blogs;
 
-	private readonly filePath = computed(() => {
+	blog = computed(() => {
 		if (this.blogs().length === 0) return undefined;
 
-		return this.blogs()[this.blogId() - 1].filePath;
+		return this.blogs()[this.blogId() - 1];
 	});
 
-	blog = httpResource.text<string>(() =>
-		this.filePath() ? this.filePath() : undefined,
+	blogString = httpResource.text<string>(() =>
+		this.blog()?.filePath ? this.blog()?.filePath : undefined,
 	);
 }

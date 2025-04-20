@@ -11,6 +11,8 @@
 		color: var(--color-gray-800);
 
 		@apply font-sans;
+
+		scroll-behavior: smooth;
 	}
 
 	h1 {

@@ -20,7 +20,14 @@ export function app(): express.Express {
 
 	server.set('views', browserDistFolder);
 
-	server.get('*.*', express.static(browserDistFolder, { maxAge: '1y' }));
+	server.get(
+		'*.*',
+		express.static(browserDistFolder, {
+			maxAge: '1y',
+			index: false,
+			redirect: false,
+		}),
+	);
 
 	server.get('*', (req, res, next) => {
 		const { protocol, originalUrl, baseUrl, headers } = req;

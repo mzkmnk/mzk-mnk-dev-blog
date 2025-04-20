@@ -5,6 +5,7 @@ import {
 } from '@/constants/blockquote.constant';
 import type { Agenda } from '@/models/agenda.model';
 import { BlogDetailService } from '@/services/blog-detail/blog-detail.service';
+import { generateSlug } from '@/utils/generate-slug.helper';
 import { Component, ElementRef, inject, input } from '@angular/core';
 import { type Token, type TokensList, marked } from 'marked';
 import { MarkdownComponent as NgxMarkdownComponent } from 'ngx-markdown';
@@ -69,10 +70,14 @@ export class MarkdownComponent {
 			(lexer) => lexer.type === 'heading' && lexer.depth === 2,
 		);
 
-		const agenda: Agenda[] = tokens.map((token) => ({
-			title: (token as Token & { text: string }).text,
-			child: [],
-		}));
+		const agenda: Agenda[] = tokens.map((token) => {
+			const title = (token as Token & { text: string }).text;
+			return {
+				title,
+				id: generateSlug(title),
+				child: [],
+			};
+		});
 
 		this.blogService.setAgenda(agenda);
 	}
