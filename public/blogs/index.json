@@ -1,11 +1,11 @@
 [
 	{
 		"id": 1,
-		"title": "ブログ作ってみた",
-		"description": "Angular Signalsは、Angularアプリケーションにおける状態管理の新しいアプローチです。従来のRxJSやNgRxとは異なり、Signalsはよりシンプルで直感的なAPIを提供します。",
-		"filePath": "public/blogs/signal.md",
-		"createdAt": "2025-04-14T13:45:00Z",
-		"updatedAt": "2025-04-14T13:45:00Z",
-		"tags": ["Angular", "Signals"]
+		"title": "個人ブログサイト作ってみた!",
+		"description": "何で今この時期に作ったのかなど色々書いてあります。",
+		"filePath": "public/blogs/blog.md",
+		"createdAt": "2025-04-20T15:00:00Z",
+		"updatedAt": "2025-04-20T15:00:00Z",
+		"tags": ["Blog"]
 	}
 ]
