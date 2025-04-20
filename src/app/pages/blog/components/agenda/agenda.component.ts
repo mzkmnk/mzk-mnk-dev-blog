@@ -1,4 +1,6 @@
+import { HEADER_HEIGHT } from '@/constants/header-height.constant';
 import { BlogDetailService } from '@/services/blog-detail/blog-detail.service';
+import { DOCUMENT, ViewportScroller } from '@angular/common';
 import { Component, inject } from '@angular/core';
 
 @Component({
@@ -9,18 +11,36 @@ import { Component, inject } from '@angular/core';
 	},
 	template: `
 		<h4>目次</h4>
-		<div class="flex flex-col gap-4">
+		<ol class="flex flex-col gap-4 list-decimal list-inside">
 			@for(item of agenda(); let i = $index; track i){
-				<div class="w-full flex gap-2">
-					<p>{{i + 1}}<span>.</span></p>
-					<p class="underline cursor-pointer">{{item.title}}</p>
-				</div>
+				<li class="w-full cursor-pointer text-sm hover:underline" (click)="scrollTo(item.id)">
+					{{item.title}}
+				</li>
 			}
-		</div>
+		</ol>
   `,
 })
 export class AgendaComponent {
 	private readonly blogDetailService = inject(BlogDetailService);
 
+	private readonly scroller = inject(ViewportScroller);
+
+	private readonly document = inject(DOCUMENT);
+
 	agenda = this.blogDetailService.agenda;
+
+	scrollTo = (slug: string): void => {
+		const [_, currentY] = this.scroller.getScrollPosition();
+
+		const clientRect = this.document
+			.getElementById(slug)
+			?.getBoundingClientRect();
+
+		if (clientRect === undefined) return;
+
+		window.scrollTo({
+			top: currentY + clientRect.y - HEADER_HEIGHT,
+			behavior: 'smooth',
+		});
+	};
 }

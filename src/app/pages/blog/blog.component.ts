@@ -13,9 +13,9 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 	},
 	template: `
 		
-		<div class="flex flex-col items-center gap-2 md:gap-6 text-center md:w-2/3">
-			<h2 class="font-bold">{{blog()?.title}}</h2>
-			<p class="text-base">{{blog()?.description}}</p>
+		<div class="flex flex-col items-center gap-2 md:gap-6 md:w-2/3">
+			<h2 class="text-center font-bold">{{blog()?.title}}</h2>
+			<p class="text-center text-base">{{blog()?.description}}</p>
 		</div>
 		
 		<div class="flex gap-8 w-full">
