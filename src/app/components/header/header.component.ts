@@ -4,12 +4,15 @@ import { NgOptimizedImage } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
+import { radixGithubLogo } from '@ng-icons/radix-icons';
 import { tablerAlignRight, tablerSearch } from '@ng-icons/tabler-icons';
 
 @Component({
 	selector: 'app-header',
 	imports: [NavItemComponent, NgIcon, NgOptimizedImage],
-	providers: [provideIcons({ tablerSearch, tablerAlignRight })],
+	providers: [
+		provideIcons({ tablerSearch, tablerAlignRight, radixGithubLogo }),
+	],
 	template: `
 		<header class="h-20 bg-gray-50/30 backdrop-blur-md">
 			<div class="flex h-full items-center justify-between sm:px-6 px-3">
@@ -29,6 +32,13 @@ import { tablerAlignRight, tablerSearch } from '@ng-icons/tabler-icons';
 								alt="mzkmnk icon"
 							/>
 						</div>
+					</li>
+					<li>
+						<button class="cursor-pointer" (click)="navigateGithub()">
+							<ng-icon
+								name="radixGithubLogo"
+							/>
+						</button>
 					</li>
 					<li>
 						<div class="cursor-pointer" (click)="inDevelopment()">
@@ -65,6 +75,10 @@ export class HeaderComponent {
 			case 'home':
 				await this.router.navigate(['/home']);
 		}
+	}
+
+	navigateGithub(): void {
+		window.open('https://github.com/mzkmnk/mzk-mnk-dev-blog');
 	}
 
 	inDevelopment(): void {
