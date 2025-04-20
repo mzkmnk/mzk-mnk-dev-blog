@@ -1,11 +1,13 @@
 import {
 	type ApplicationConfig,
+	LOCALE_ID,
 	SecurityContext,
 	provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { markdownOptionsFactory } from '@/utils/markdown.helper';
+import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
 import {
 	provideClientHydration,

@@ -16,7 +16,9 @@ import { tablerAlignRight, tablerSearch } from '@ng-icons/tabler-icons';
 	template: `
 		<header class="h-20 bg-gray-50/30 backdrop-blur-md">
 			<div class="flex h-full items-center justify-between sm:px-6 px-3">
-				<h4 class="font-semibold text-xl">MZK.MNK.DEV</h4>
+				<button class="cursor-pointer" (click)="clickNavItem('home')">
+					<h4 class="font-semibold text-xl">MZK.MNK.DEV</h4>
+				</button>
 				<ul class="md:flex gap-6 md:items-center hidden">
 					<app-nav-item
 						item="Home"
