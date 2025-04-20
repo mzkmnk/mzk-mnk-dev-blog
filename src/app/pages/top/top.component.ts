@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
             <div class="flex gap-2 overflow-x-auto">
 
               @for(tag of blog.tags; let j = $index; track j){
-                <app-chip [tag]="tag" />
+                <app-chip [tag]="tag" [variant]="tag" />
               }
             </div>
             <p class="font-semibold text-lg transition group-hover:text-sky-600">{{blog.title}}</p>
