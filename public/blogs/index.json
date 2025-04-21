@@ -7,5 +7,14 @@
 		"createdAt": "1745142921707",
 		"updatedAt": "1745142921707",
 		"tags": ["Blog"]
+	},
+	{
+		"id": 2,
+		"title": "[JavaScript] ホイスティングとは？",
+		"description": "JavaScriptのホイスティングについて解説します。",
+		"filePath": "public/blogs/hoisting.md",
+		"createdAt": "1745206819086",
+		"updatedAt": "1745206819086",
+		"tags": ["JavaScript", "Tech"]
 	}
 ]
