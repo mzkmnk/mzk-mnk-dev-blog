@@ -4,25 +4,28 @@ import {
 	isBlockquoteLabel,
 } from '@/constants/blockquote.constant';
 import type { Agenda } from '@/models/agenda.model';
+import { MarkdownPipe } from '@/pipes/markdown.pipe';
 import { BlogDetailService } from '@/services/blog-detail/blog-detail.service';
 import { generateSlug } from '@/utils/generate-slug.helper';
+import { AsyncPipe } from '@angular/common';
 import { Component, ElementRef, inject, input } from '@angular/core';
 import { type Token, type TokensList, marked } from 'marked';
 import { MarkdownComponent as NgxMarkdownComponent } from 'ngx-markdown';
 
 @Component({
 	selector: 'app-markdown',
-	imports: [NgxMarkdownComponent],
+	imports: [NgxMarkdownComponent, MarkdownPipe, AsyncPipe],
 	host: {
 		class: 'w-full md:flex-1',
 	},
 	template: `
-    <markdown
-			class="prose prose-indigo"
-      (ready)="readyMarkdown()"
-    >
-      {{blog()}}
-    </markdown>
+    <!-- <markdown -->
+		<!-- 	class="prose prose-indigo" -->
+    <!--   (ready)="readyMarkdown()" -->
+    <!-- > -->
+    <!--   {{blog()}} -->
+    <!-- </markdown> -->
+		<div class="prose" [innerHTML]="blog() | markdown | async"></div>
   `,
 })
 export class MarkdownComponent {
