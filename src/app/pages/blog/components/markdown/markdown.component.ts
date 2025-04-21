@@ -14,10 +14,11 @@ import { MarkdownComponent as NgxMarkdownComponent } from 'ngx-markdown';
 	selector: 'app-markdown',
 	imports: [NgxMarkdownComponent],
 	host: {
-		class: 'w-full md:flex-auto',
+		class: 'w-full md:flex-1',
 	},
 	template: `
     <markdown
+			class="prose prose-indigo"
       (ready)="readyMarkdown()"
     >
       {{blog()}}
@@ -30,7 +31,7 @@ export class MarkdownComponent {
 	private readonly blogService = inject(BlogDetailService);
 
 	readyMarkdown(): void {
-		this.highlightBlockquote();
+		// this.highlightBlockquote();
 
 		this.getAgenda();
 	}

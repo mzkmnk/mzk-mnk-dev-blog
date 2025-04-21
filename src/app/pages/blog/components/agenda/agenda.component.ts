@@ -7,7 +7,7 @@ import { Component, inject } from '@angular/core';
 	selector: 'app-agenda',
 	host: {
 		class:
-			'sticky top-24 bg-gray-200 min-w-76 rounded-xl lg:flex lg:flex-col lg:gap-4 hidden lg:self-start p-5',
+			'sticky top-24 bg-gray-200 w-76 rounded-xl lg:flex lg:flex-col lg:gap-4 hidden lg:self-start p-5',
 	},
 	template: `
 		<h4>目次</h4>
