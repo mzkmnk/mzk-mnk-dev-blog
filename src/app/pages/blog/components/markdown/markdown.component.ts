@@ -3,7 +3,7 @@ import { MarkdownPipe } from '@/pipes/markdown.pipe';
 import { BlogDetailService } from '@/services/blog-detail/blog-detail.service';
 import { generateSlug } from '@/utils/generate-slug.helper';
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
+import { Component, type OnInit, inject, input } from '@angular/core';
 import { type Token, type TokensList, marked } from 'marked';
 
 @Component({
@@ -16,15 +16,14 @@ import { type Token, type TokensList, marked } from 'marked';
 		<div class="prose" [innerHTML]="blog() | markdown | async"></div>
   `,
 })
-export class MarkdownComponent {
+export class MarkdownComponent implements OnInit {
 	blog = input.required<string>();
 	private readonly blogService = inject(BlogDetailService);
 
-	readyMarkdown(): void {
-		//this.getAgenda();
+	ngOnInit(): void {
+		this.getAgenda();
 	}
 
-	// TODO: Fix this
 	private getAgenda(): void {
 		const lexers: TokensList = marked.lexer(this.blog());
 
