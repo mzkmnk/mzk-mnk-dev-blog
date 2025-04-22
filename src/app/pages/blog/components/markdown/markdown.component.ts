@@ -19,12 +19,6 @@ import { MarkdownComponent as NgxMarkdownComponent } from 'ngx-markdown';
 		class: 'w-full md:flex-1',
 	},
 	template: `
-    <!-- <markdown -->
-		<!-- 	class="prose prose-indigo" -->
-    <!--   (ready)="readyMarkdown()" -->
-    <!-- > -->
-    <!--   {{blog()}} -->
-    <!-- </markdown> -->
 		<div class="prose" [innerHTML]="blog() | markdown | async"></div>
   `,
 })
@@ -35,9 +29,10 @@ export class MarkdownComponent {
 
 	readyMarkdown(): void {
 		// this.highlightBlockquote();
-
-		this.getAgenda();
+		//this.getAgenda();
 	}
+
+
 
 	private highlightBlockquote(): void {
 		const blockquotes: HTMLElement[] = Array.from(
