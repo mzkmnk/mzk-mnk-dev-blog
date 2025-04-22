@@ -1,30 +1,10 @@
-import { generateSlug } from '@/utils/generate-slug.helper';
 import {
-	type MarkedOptions,
-	type RendererObject,
-	type Tokens,
-	marked,
-} from 'marked';
+	BLOCKQUOTES_CLASS,
+	isBlockquoteLabel,
+} from '@/constants/blockquote.constant';
+import { generateSlug } from '@/utils/generate-slug.helper';
+import type { RendererObject, Tokens } from 'marked';
 import { Parser } from 'marked';
-import { MarkedRenderer } from 'ngx-markdown';
-
-export function markdownOptionsFactory(): MarkedOptions {
-	const renderer = new MarkedRenderer();
-
-	renderer.heading = ({ tokens, depth }): string => {
-		const text = Parser.parseInline(tokens);
-
-		const slug = generateSlug(text);
-
-		return `<h${depth} id="${slug}">${text}</h${depth}>`;
-	};
-
-	return {
-		renderer: renderer,
-		gfm: true,
-		breaks: true,
-	};
-}
 
 export function rendererFactory(): RendererObject {
 	return {
@@ -36,9 +16,21 @@ export function rendererFactory(): RendererObject {
 			return `<h${depth} id="${slug}">${text}</h${depth}>`;
 		},
 		blockquote({ tokens }: Tokens.Blockquote): string {
-			console.log(Parser.parseInline(tokens));
+			const content = Parser.parse(tokens);
 
-			return `<blockquote>aa</blockquote>`;
+			const lines = content.split('<br>');
+
+			if (lines.length === 0) {
+				return `<blockquote>${content}</blockquote>`;
+			}
+
+			const label = lines[0].replace('<p>', '');
+
+			if (isBlockquoteLabel(label)) {
+				return `<blockquote class="${BLOCKQUOTES_CLASS[label]}">${content}</blockquote>`;
+			}
+
+			return `<blockquote>${content}</blockquote>`;
 		},
 	};
 }
