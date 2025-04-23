@@ -1,6 +1,6 @@
 import { NavItemComponent } from '@/components/header/nav-item.component';
-import { UserIconComponent } from '@/components/user-icon/user-icon.component';
 import { DevService } from '@/services/dev/dev.service';
+import { NgOptimizedImage } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -9,31 +9,31 @@ import { tablerAlignRight, tablerSearch } from '@ng-icons/tabler-icons';
 
 @Component({
 	selector: 'app-header',
-	imports: [NavItemComponent, NgIcon, UserIconComponent],
+	imports: [NavItemComponent, NgIcon, NgOptimizedImage],
 	providers: [
 		provideIcons({ tablerSearch, tablerAlignRight, radixGithubLogo }),
 	],
 	template: `
 		<header class="h-20 bg-gray-50/30 backdrop-blur-md">
 			<div class="flex h-full items-center justify-between sm:px-6 px-3">
-				<div class="flex items-center gap-2">
-					<button class="cursor-pointer" (click)="clickNavItem('home')">
-						<div class="flex gap-2 items-center">
-							<h4 class="font-semibold text-xl hidden md:block">MZK.MNK.DEV</h4>
-							<p class="font-semibold md:hidden">MZK.MNK.DEV</p>
-						</div>
-					</button>
-					<div class="md:hidden">
-						<app-user-icon (onClick)="inDevelopment()"/>
-					</div>
-				</div>
+				<button class="cursor-pointer" (click)="clickNavItem('home')">
+					<h4 class="font-semibold text-xl">MZK.MNK.DEV</h4>
+				</button>
 				<ul class="md:flex gap-6 md:items-center hidden">
 					<app-nav-item
 						item="Home"
 						(onClickNavItem)="clickNavItem('home')"
 					/>
 					<li>
-						<app-user-icon (onClick)="inDevelopment()"/>
+						<div class="cursor-pointer" (click)="inDevelopment()">
+							<img
+								class="rounded-full border-2 border-slate-600"
+								ngSrc="public/icon.jpg"
+								[height]="35"
+								[width]="35"
+								alt="mzkmnk icon"
+							/>
+						</div>
 					</li>
 					<li>
 						<button class="cursor-pointer" (click)="navigateGithub()">
