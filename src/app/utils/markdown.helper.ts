@@ -15,6 +15,11 @@ export function rendererFactory(): RendererObject {
 
 			return `<h${depth} id="${slug}">${text}</h${depth}>`;
 		},
+		link({ href, tokens }: Tokens.Link): string {
+			const text = Parser.parseInline(tokens);
+
+			return `<a href="${href}" target="_blank">${text}</a>`;
+		},
 		blockquote({ tokens }: Tokens.Blockquote): string {
 			const content = Parser.parse(tokens);
 

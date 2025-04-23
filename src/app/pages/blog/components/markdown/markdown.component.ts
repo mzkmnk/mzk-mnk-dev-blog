@@ -13,7 +13,7 @@ import { type Token, type TokensList, marked } from 'marked';
 		class: 'w-full md:flex-1',
 	},
 	template: `
-		<div class="prose" [innerHTML]="blog() | markdown | async"></div>
+		<article class="prose prose-a:no-underline prose-a:border-b-2 prose-a:border-b-sky-400" [innerHTML]="blog() | markdown | async"></article>
   `,
 })
 export class MarkdownComponent implements OnInit {

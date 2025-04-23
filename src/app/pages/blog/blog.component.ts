@@ -42,7 +42,7 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 			</div>
 		</div>
 		
-		<div class="flex gap-8 lg:w-292 lg:max-w-full">
+		<div class="flex gap-8 lg:w-282 lg:max-w-full">
 			
 			@let value = blogString.value();
 			
@@ -57,11 +57,7 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 	`,
 })
 export class BlogComponent {
-	private readonly blogsService = inject(BlogsService);
-
 	blogId = input.required<number>();
-
-	blogs = this.blogsService.blogs;
 
 	blog = computed(() => {
 		if (this.blogs().length === 0) return undefined;
@@ -72,4 +68,8 @@ export class BlogComponent {
 	blogString = httpResource.text<string>(() =>
 		this.blog()?.filePath ? this.blog()?.filePath : undefined,
 	);
+
+	private readonly blogsService = inject(BlogsService);
+
+	blogs = this.blogsService.blogs;
 }
