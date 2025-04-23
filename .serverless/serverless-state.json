@@ -109,7 +109,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "mzk-mnk-dev-blog-deployment-bucket",
-                "S3Key": "serverless/mzk-mnk-dev-blog/prod/1745415628234-2025-04-23T13:40:28.234Z/app.zip"
+                "S3Key": "serverless/mzk-mnk-dev-blog/prod/1745416029032-2025-04-23T13:47:09.032Z/app.zip"
               },
               "Handler": "dist/mzk-mnk-dev-blog/server/server.main",
               "Runtime": "nodejs22.x",
@@ -133,14 +133,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersion0iQVDCUfJBBHPjCDrEvwGhzelr0lMZi6FbBsq55MR4": {
+          "AppLambdaVersionpy5EAXp2icmH6oFehbf5HxEO9LMW6RiulUYIA5zko": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "OOKEWiajJxV64JfhIWI6AElWX3asFN2+R7R0kl8vo9A="
+              "CodeSha256": "jFg7TvMLmWEe2bt4MXZuozBlcCDBkc9Arqg3zd7Ixw4="
             }
           },
           "AppLambdaFunctionUrl": {
@@ -285,7 +285,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersion0iQVDCUfJBBHPjCDrEvwGhzelr0lMZi6FbBsq55MR4"
+              "Ref": "AppLambdaVersionpy5EAXp2icmH6oFehbf5HxEO9LMW6RiulUYIA5zko"
             },
             "Export": {
               "Name": "sls-mzk-mnk-dev-blog-prod-AppLambdaFunctionQualifiedArn"
@@ -351,7 +351,7 @@
         "memory": 1769,
         "runtime": "nodejs22.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersion0iQVDCUfJBBHPjCDrEvwGhzelr0lMZi6FbBsq55MR4"
+        "versionLogicalId": "AppLambdaVersionpy5EAXp2icmH6oFehbf5HxEO9LMW6RiulUYIA5zko"
       }
     },
     "resources": {
@@ -378,7 +378,7 @@
         "individually": true,
         "artifactsS3KeyDirname": "serverless/mzk-mnk-dev-blog/prod/code-artifacts",
         "deploymentBucket": "mzk-mnk-dev-blog-deployment-bucket",
-        "artifactDirectoryName": "serverless/mzk-mnk-dev-blog/prod/1745415628234-2025-04-23T13:40:28.234Z"
+        "artifactDirectoryName": "serverless/mzk-mnk-dev-blog/prod/1745416029032-2025-04-23T13:47:09.032Z"
       },
       "params": {
         "default": {
@@ -395,7 +395,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/mzk-mnk-dev-blog/prod/1745415628234-2025-04-23T13:40:28.234Z",
+    "artifactDirectoryName": "serverless/mzk-mnk-dev-blog/prod/1745416029032-2025-04-23T13:47:09.032Z",
     "artifact": ""
   }
 }
