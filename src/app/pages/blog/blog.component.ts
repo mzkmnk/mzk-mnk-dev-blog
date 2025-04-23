@@ -20,11 +20,11 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 		DatePipe,
 	],
 	host: {
-		class: 'flex flex-col items-center justify-start gap-16 w-full',
+		class: 'flex flex-col items-center justify-center gap-16 w-full',
 	},
 	template: `
 		
-		<div class="flex flex-col items-center gap-2 md:gap-6 md:w-2/3">
+		<div class="flex flex-col items-center gap-2 md:gap-6 md:max-w-324">
 			<h2 class="text-center font-bold">{{blog()?.title}}</h2>
 			<p class="text-center text-base">{{blog()?.description}}</p>
 			
@@ -42,7 +42,7 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 			</div>
 		</div>
 		
-		<div class="flex gap-8 w-full">
+		<div class="flex gap-8 lg:w-282 lg:max-w-full">
 			
 			@let value = blogString.value();
 			
@@ -57,11 +57,7 @@ import { MarkdownComponent } from './components/markdown/markdown.component';
 	`,
 })
 export class BlogComponent {
-	private readonly blogsService = inject(BlogsService);
-
 	blogId = input.required<number>();
-
-	blogs = this.blogsService.blogs;
 
 	blog = computed(() => {
 		if (this.blogs().length === 0) return undefined;
@@ -72,4 +68,8 @@ export class BlogComponent {
 	blogString = httpResource.text<string>(() =>
 		this.blog()?.filePath ? this.blog()?.filePath : undefined,
 	);
+
+	private readonly blogsService = inject(BlogsService);
+
+	blogs = this.blogsService.blogs;
 }
